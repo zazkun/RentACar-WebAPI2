@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Arac">
+    <Key>
+      <PropertyRef Name="aracId" />
+    </Key>
+    <Property Name="aracId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="aracModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="aracFoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="aracFiyat" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="aracKategoriId" Type="Int32" Nullable="false" />
+    <Property Name="aracUyeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kategori" Relationship="Self.FK_Arac_ToKategori" FromRole="Arac" ToRole="Kategori" />
+    <NavigationProperty Name="Uye" Relationship="Self.FK_Arac_ToUye" FromRole="Arac" ToRole="Uye" />
+    <NavigationProperty Name="Kiralama" Relationship="Self.FK_Kiralama_ToArac" FromRole="Arac" ToRole="Kiralama" />
+  </EntityType>
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="kategoriId" />
+    </Key>
+    <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Arac" Relationship="Self.FK_Arac_ToKategori" FromRole="Kategori" ToRole="Arac" />
+  </EntityType>
+  <EntityType Name="Kiralama">
+    <Key>
+      <PropertyRef Name="kiraId" />
+    </Key>
+    <Property Name="kiraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="aracPlakaNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="kiraBasGun" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="kiraSonGun" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="kiraUyeId" Type="Int32" Nullable="false" />
+    <Property Name="kiraAracId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Arac" Relationship="Self.FK_Kiralama_ToArac" FromRole="Kiralama" ToRole="Arac" />
+    <NavigationProperty Name="Uye" Relationship="Self.FK_Kiralama_ToUye" FromRole="Kiralama" ToRole="Uye" />
+  </EntityType>
+  <EntityType Name="Uye">
+    <Key>
+      <PropertyRef Name="uyeId" />
+    </Key>
+    <Property Name="uyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="adsoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="uyeFotograf" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="uyeAdmin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Arac" Relationship="Self.FK_Arac_ToUye" FromRole="Uye" ToRole="Arac" />
+    <NavigationProperty Name="Kiralama" Relationship="Self.FK_Kiralama_ToUye" FromRole="Uye" ToRole="Kiralama" />
+  </EntityType>
+  <Association Name="FK_Arac_ToKategori">
+    <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+    <End Role="Arac" Type="Self.Arac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="kategoriId" />
+      </Principal>
+      <Dependent Role="Arac">
+        <PropertyRef Name="aracKategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Arac_ToUye">
+    <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+    <End Role="Arac" Type="Self.Arac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uye">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Arac">
+        <PropertyRef Name="aracUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kiralama_ToArac">
+    <End Role="Arac" Type="Self.Arac" Multiplicity="1" />
+    <End Role="Kiralama" Type="Self.Kiralama" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Arac">
+        <PropertyRef Name="aracId" />
+      </Principal>
+      <Dependent Role="Kiralama">
+        <PropertyRef Name="kiraAracId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kiralama_ToUye">
+    <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+    <End Role="Kiralama" Type="Self.Kiralama" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uye">
+        <PropertyRef Name="uyeId" />
+      </Principal>
+      <Dependent Role="Kiralama">
+        <PropertyRef Name="kiraUyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB01Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Arac" EntityType="Self.Arac" />
+    <EntitySet Name="Kategori" EntityType="Self.Kategori" />
+    <EntitySet Name="Kiralama" EntityType="Self.Kiralama" />
+    <EntitySet Name="Uye" EntityType="Self.Uye" />
+    <AssociationSet Name="FK_Arac_ToKategori" Association="Self.FK_Arac_ToKategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Arac" EntitySet="Arac" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Arac_ToUye" Association="Self.FK_Arac_ToUye">
+      <End Role="Uye" EntitySet="Uye" />
+      <End Role="Arac" EntitySet="Arac" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kiralama_ToArac" Association="Self.FK_Kiralama_ToArac">
+      <End Role="Arac" EntitySet="Arac" />
+      <End Role="Kiralama" EntitySet="Kiralama" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kiralama_ToUye" Association="Self.FK_Kiralama_ToUye">
+      <End Role="Uye" EntitySet="Uye" />
+      <End Role="Kiralama" EntitySet="Kiralama" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

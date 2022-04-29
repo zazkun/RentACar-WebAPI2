@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB01ModelStoreContainer" CdmEntityContainer="DB01Entities">
+    <EntitySetMapping Name="Arac">
+      <EntityTypeMapping TypeName="DB01Model.Arac">
+        <MappingFragment StoreEntitySet="Arac">
+          <ScalarProperty Name="aracId" ColumnName="aracId" />
+          <ScalarProperty Name="aracModel" ColumnName="aracModel" />
+          <ScalarProperty Name="aracFoto" ColumnName="aracFoto" />
+          <ScalarProperty Name="aracFiyat" ColumnName="aracFiyat" />
+          <ScalarProperty Name="aracKategoriId" ColumnName="aracKategoriId" />
+          <ScalarProperty Name="aracUyeId" ColumnName="aracUyeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategori">
+      <EntityTypeMapping TypeName="DB01Model.Kategori">
+        <MappingFragment StoreEntitySet="Kategori">
+          <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+          <ScalarProperty Name="kategoriAdi" ColumnName="kategoriAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kiralama">
+      <EntityTypeMapping TypeName="DB01Model.Kiralama">
+        <MappingFragment StoreEntitySet="Kiralama">
+          <ScalarProperty Name="kiraId" ColumnName="kiraId" />
+          <ScalarProperty Name="aracPlakaNo" ColumnName="aracPlakaNo" />
+          <ScalarProperty Name="kiraBasGun" ColumnName="kiraBasGun" />
+          <ScalarProperty Name="kiraSonGun" ColumnName="kiraSonGun" />
+          <ScalarProperty Name="kiraUyeId" ColumnName="kiraUyeId" />
+          <ScalarProperty Name="kiraAracId" ColumnName="kiraAracId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uye">
+      <EntityTypeMapping TypeName="DB01Model.Uye">
+        <MappingFragment StoreEntitySet="Uye">
+          <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+          <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="adsoyad" ColumnName="adsoyad" />
+          <ScalarProperty Name="uyeFotograf" ColumnName="uyeFotograf" />
+          <ScalarProperty Name="uyeAdmin" ColumnName="uyeAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
